@@ -36,6 +36,9 @@ namespace Service
                 AgencyId = tourDto.AgencyId,
                 IsActive = tourDto.IsActive,
                 Capacity = tourDto.Capacity,
+                IsConfirm = tourDto.IsConfirm,
+                TourType= tourDto.TourType,
+                
             };
             await _travelContext.Tours.AddAsync(tour);
             var res = await _travelContext.SaveChangesAsync();
@@ -83,6 +86,8 @@ namespace Service
                 tour.IsSpecial = tourDto.IsSpecial;
                 tour.Title = tourDto.Title;
                 tour.IsActive = tourDto.IsActive;
+                tour.IsConfirm = tourDto.IsConfirm;
+                tour.TourType = tourDto.TourType;
                 var res = await _travelContext.SaveChangesAsync();
                 respons.Succided = res > 0 ? true : false;
                 respons.ErrorMessage = res > 0 ? "" : "مشکلی در ویرایش رکورد به وجود آمده است";
@@ -109,6 +114,8 @@ namespace Service
                 StartDate = t.StartDate,
                 Capacity = t.Capacity,
                 IsActive = t.IsActive,
+                IsConfirm = t.IsConfirm,
+                TourType=t.TourType,
             }).ToListAsync();
         }
 
@@ -128,6 +135,9 @@ namespace Service
                 StartDate = t.StartDate,
                 Capacity = t.Capacity,
                 IsActive = t.IsActive,
+                IsConfirm = t.IsConfirm,
+                TourType = t.TourType,
+
             }).ToListAsync();
 
 
@@ -149,6 +159,8 @@ namespace Service
                 StartDate = t.StartDate,
                 Capacity = t.Capacity,
                 IsActive = t.IsActive,
+                IsConfirm = t.IsConfirm,
+                TourType = t.TourType,
             }).ToListAsync();
         }
 
@@ -168,6 +180,8 @@ namespace Service
                 StartDate = t.StartDate,
                 Capacity = t.Capacity,
                 IsActive = t.IsActive,
+                IsConfirm = t.IsConfirm,
+                TourType = t.TourType,
             }).ToListAsync();
         }
 
@@ -190,6 +204,8 @@ namespace Service
                     StartDate = tour.StartDate,
                     Capacity = tour.Capacity,
                     IsActive = tour.IsActive,
+                    IsConfirm = tour.IsConfirm,
+                    TourType = tour.TourType,
                 };
             }
             return null;
