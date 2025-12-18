@@ -36,6 +36,9 @@ namespace Service
                 AgencyId = tourDto.AgencyId,
                 IsActive = tourDto.IsActive,
                 Capacity = tourDto.Capacity,
+                IsConfirm = tourDto.IsConfirm,
+                TourType = tourDto.TourType,
+
             };
             await _travelContext.Tours.AddAsync(tour);
             var res = await _travelContext.SaveChangesAsync();
@@ -83,6 +86,8 @@ namespace Service
                 tour.IsSpecial = tourDto.IsSpecial;
                 tour.Title = tourDto.Title;
                 tour.IsActive = tourDto.IsActive;
+                tour.IsConfirm = tourDto.IsConfirm;
+                tour.TourType = tourDto.TourType;
                 var res = await _travelContext.SaveChangesAsync();
                 respons.Succided = res > 0 ? true : false;
                 respons.ErrorMessage = res > 0 ? "" : "مشکلی در ویرایش رکورد به وجود آمده است";
@@ -95,21 +100,27 @@ namespace Service
 
         public async Task<List<TourDto>> GetAll()
         {
-            return await _travelContext.Tours.Select(t => new TourDto
-            {
-                Id = t.Id,
-                Title = t.Title,
-                AgencyId = t.AgencyId,
-                CategoryId = t.CategoryId,
-                CityId = t.CityId,
-                Description = t.Description,
-                Price = t.Price,
-                Duration = t.Duration,
-                IsSpecial = t.IsSpecial,
-                StartDate = t.StartDate,
-                Capacity = t.Capacity,
-                IsActive = t.IsActive,
-            }).ToListAsync();
+            return await _travelContext.Tours
+                .Select(t => new TourDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    AgencyId = t.AgencyId,
+                    CategoryId = t.CategoryId,
+                    CityId = t.CityId,
+                    Description = t.Description,
+                    Price = t.Price,
+                    Duration = t.Duration,
+                    IsSpecial = t.IsSpecial,
+                    StartDate = t.StartDate,
+                    Capacity = t.Capacity,
+                    IsActive = t.IsActive,
+                    IsConfirm = t.IsConfirm,
+                    TourType = t.TourType,
+                    AgencyName = t.Agency.Name,
+                    CategoryName = t.Category.Name,
+                    CityName = t.City.Name
+                }).ToListAsync();
         }
 
         public async Task<List<TourDto>> GetByAgency(long agencyid)
@@ -128,6 +139,12 @@ namespace Service
                 StartDate = t.StartDate,
                 Capacity = t.Capacity,
                 IsActive = t.IsActive,
+                IsConfirm = t.IsConfirm,
+                TourType = t.TourType,
+                AgencyName = t.Agency.Name,
+                CategoryName = t.Category.Name,
+                CityName = t.City.Name
+
             }).ToListAsync();
 
 
@@ -149,26 +166,39 @@ namespace Service
                 StartDate = t.StartDate,
                 Capacity = t.Capacity,
                 IsActive = t.IsActive,
+                IsConfirm = t.IsConfirm,
+                TourType = t.TourType,
+                AgencyName = t.Agency.Name,
+                CategoryName = t.Category.Name,
+                CityName = t.City.Name
             }).ToListAsync();
         }
 
         public async Task<List<TourDto>> GetByCity(long cityid)
         {
-            return await _travelContext.Tours.Where(x => x.CityId == cityid).Select(t => new TourDto
-            {
-                Id = t.Id,
-                Title = t.Title,
-                AgencyId = t.AgencyId,
-                CategoryId = t.CategoryId,
-                CityId = t.CityId,
-                Description = t.Description,
-                Price = t.Price,
-                Duration = t.Duration,
-                IsSpecial = t.IsSpecial,
-                StartDate = t.StartDate,
-                Capacity = t.Capacity,
-                IsActive = t.IsActive,
-            }).ToListAsync();
+            return await _travelContext.Tours
+                .Where(x => x.CityId == cityid)
+                .Select(t => new TourDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    AgencyId = t.AgencyId,
+                    CategoryId = t.CategoryId,
+                    CityId = t.CityId,
+                    Description = t.Description,
+                    Price = t.Price,
+                    Duration = t.Duration,
+                    IsSpecial = t.IsSpecial,
+                    StartDate = t.StartDate,
+                    Capacity = t.Capacity,
+                    IsActive = t.IsActive,
+                    IsConfirm = t.IsConfirm,
+                    TourType = t.TourType,
+                    AgencyName = t.Agency.Name,
+                    CategoryName = t.Category.Name,
+                    CityName = t.City.Name
+
+                }).ToListAsync();
         }
 
         public async Task<TourDto?> GetById(long id)
@@ -190,6 +220,11 @@ namespace Service
                     StartDate = tour.StartDate,
                     Capacity = tour.Capacity,
                     IsActive = tour.IsActive,
+                    IsConfirm = tour.IsConfirm,
+                    TourType = tour.TourType,
+                    AgencyName = tour.Agency.Name,
+                    CategoryName = tour.Category.Name,
+                    CityName = tour.City.Name
                 };
             }
             return null;
@@ -227,7 +262,7 @@ namespace Service
             {
                 tour.IsActive = true;
             }
-            var res =await _travelContext.SaveChangesAsync();
+            var res = await _travelContext.SaveChangesAsync();
             respons.Succided = res > 0 ? true : false;
             respons.ErrorMessage = res > 0 ? "" : "مشکلی در اجرای عملیات مورد نظر  به وجود آمده است";
             return respons;

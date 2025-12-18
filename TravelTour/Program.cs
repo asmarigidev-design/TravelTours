@@ -1,9 +1,11 @@
 using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Service;
+using ServiceContract;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<ITourService, TourService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TravelContext>(option =>
@@ -13,6 +15,13 @@ builder.Services.AddDbContext<TravelContext>(option =>
 builder.Services.AddIdentity<AppUser,AppRole>()
     .AddEntityFrameworkStores<TravelContext>()
     .AddDefaultTokenProviders();
+
+
+#region Services
+builder.Services.AddScoped<ICityService, CityService>();
+#endregion
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
