@@ -19,6 +19,8 @@ builder.Services.AddIdentity<AppUser,AppRole>()
 
 #region Services
 builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<TourService>();
+
 #endregion
 
 
