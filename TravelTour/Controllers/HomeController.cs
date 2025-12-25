@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TravelTour.Models;
 
@@ -48,6 +48,20 @@ namespace TravelTour.Controllers
             return View();
         }
 
+        public IActionResult Tours()
+        {
+            return View();
+        }
+        public IActionResult Favorites()
+        {
+            return View();
+        }
+
+        public IActionResult TravelGuide()
+        {
+            ViewData["Title"] = "راهنمای سفر ایران";
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
